@@ -13,14 +13,8 @@ hbs.registerPartials(__dirname + '/views/partials');
 require('./hbs/helper');
 //No es necesario importar los helpers con una variable porque cada helper se
 //registra en la variable hbs que también está definida en éste archivo y ya
-//se pueden utilizar en éste archivo js
-
-
-const port = process.env.port || 3000;
-//la configuración del puerto es necearia porque localmente yo puedo especificar
-//un puerto, pero cuando se sube a un servidor, como Heroku, desconocemos en qué
-//puerto se servirá. De esa forma, cuando se ejecute localmente, la variable de
-//entorno "process.env.port" no existirá, y la constante port tomará el valor de 3000
+//se pueden utilizar en éste archivo js, pero si es necesario registrar el
+//archivo, para que se ejecuten las funciones que existen en helper.hbs
 
 app.get('/', (req, res) => {
     // res.send('Hola Mundo');
@@ -31,9 +25,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-
+    
     res.render ('about', {});
 });
+
+
+
+const port = process.env.port || 3000;
+//la configuración del puerto es necearia porque localmente yo puedo especificar
+//un puerto, pero cuando se sube a un servidor, como Heroku, desconocemos en qué
+//puerto se servirá. De esa forma, cuando se ejecute localmente, la variable de
+//entorno "process.env.port" no existirá, y la constante port tomará el valor de 3000
 
 app.listen(port, () => {
     console.log(`Server escuchando en el puerto ${ port }`);
